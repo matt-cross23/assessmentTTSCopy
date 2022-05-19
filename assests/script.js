@@ -45,7 +45,7 @@ function speak() {
     window.speechSynthesis.speak(msg)
 
     playButton.addEventListener("click", function (event) {
-        console.log("speaking text");
-        window.speechSynthesis.speak(utterThis)
-        event.preventDefault();
-      });
+      console.log("speaking text");
+      synth.speak(msg)
+      event.preventDefault();
+    });
