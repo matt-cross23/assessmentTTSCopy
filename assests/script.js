@@ -40,6 +40,17 @@ const questionObject = {
 };
 console.log(questionObject);
 
+function highlightContent() {
+  let highlightArray = [];
+  for (let i = 0; i < paragraphs.length; i++) {
+    highlightArray.push(paragraphs[i].innerHTML);
+    for (let j = 0; j < highlightArray.length; j++) {
+      paragraphs[i].classList.add("mark");
+    }
+  }
+  console.log(highlightArray);
+}
+
 var utterThis = new SpeechSynthesisUtterance(question[0].textContent);
 var utterQueue = new SpeechSynthesisUtterance(question[1].textContent);
 utterQueue.rate = 5
@@ -53,9 +64,7 @@ function speak() {
     return;
   }
   utterThis.onstart = function (event) {
-    console.log(
-      "We have started uttering this speech: " + event.utterance.text
-    );
+  
   };
 
   if (utterThis.value !== "") {
@@ -64,6 +73,10 @@ function speak() {
     utterThis.onstart = function (event) {
       let pending = synth.pending;
       console.log("The Queue is " + pending);
+      highlightContent()
+      console.log(
+        "We have started uttering this speech: " + event.utterance.text
+      );
     };
   }
   utterThis.onend = function (event) {
@@ -82,6 +95,7 @@ playButton.addEventListener("click", function (event) {
 });
 
 newQuestion.addEventListener("click", function (event) {
+  highlightContent()
   event.preventDefault();
   synth.speak(utterQueue);
 });
@@ -107,3 +121,5 @@ document.querySelector("#resume").addEventListener("click", () => {
 document.querySelector("#cancelVoice").addEventListener("click", () => {
   window.speechSynthesis.cancel();
 });
+
+
