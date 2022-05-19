@@ -58,6 +58,10 @@ utterThis.rate = 1
 
 console.log(paragraphs);
 
+// Update speech function to be less specific by 
+// Pass through html element to function so that it can read it 
+// Also have highlight function so it highlights at same time and same text
+
 function speak() {
   if (synth.speaking) {
     console.error("speechSynthesis.speaking");
