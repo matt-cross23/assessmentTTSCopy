@@ -12,8 +12,6 @@ let paragraphs = document.querySelectorAll("p");
 let nextButton = document.querySelector(".proxyNext");
 let newQuestion = document.querySelectorAll(".newbutton");
 
-var utterQueue = new SpeechSynthesisUtterance(question[1].textContent);
-
 const questionObject = {
   utterance1: new SpeechSynthesisUtterance(question[0].textContent),
   utterance2: new SpeechSynthesisUtterance(question[1].textContent),
@@ -43,6 +41,8 @@ const questionObject = {
 console.log(questionObject);
 
 var utterThis = new SpeechSynthesisUtterance(question[0].textContent);
+var utterQueue = new SpeechSynthesisUtterance(question[1].textContent);
+
 
 console.log(paragraphs);
 
@@ -59,7 +59,7 @@ function speak() {
 
   if (utterThis.value !== "") {
     console.log(utterThis);
-    // console.log(utterQueue)
+    console.log(utterQueue)
     utterThis.onstart = function (event) {
       let pending = synth.pending;
       console.log("The Queue is " + pending);
