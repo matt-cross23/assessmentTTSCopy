@@ -53,8 +53,8 @@ function highlightContent() {
 
 var utterThis = new SpeechSynthesisUtterance(question[0].textContent);
 var utterQueue = new SpeechSynthesisUtterance(question[1].textContent);
-utterQueue.rate = 5
-utterThis.rate = 5
+utterQueue.rate = 1
+utterThis.rate = 1
 
 console.log(paragraphs);
 
