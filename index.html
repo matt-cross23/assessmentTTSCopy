@@ -17,7 +17,7 @@
     <title> TAP by ERPHealth </title>
     <link rel="icon" href="/assets/img/hex_icon.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="speak-easy-synthesis/assests/style.css">
+    <link rel="stylesheet" href="assests/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body class=" desktop-device ">
@@ -56,10 +56,11 @@
                         <div class="lifestyle assessment">
                             <div class="controls">
                                 <div class="mb-5">
-                                    <button type= 'button' id="play" class="btn btn-success mt-5 me-3">Play</button>
-                                    <button id="pause" class="btn btn-warning mt-5 me-3">Pause</button>
-                                    <button id="resume" class="btn btn-info mt-5 me-3">Resume</button>
-                                    <button id="cancelVoice" class="btn btn-danger mt-5 me-3">Cancel</button>
+                                    <!-- <button id="play" class="btn btn-primary">Play</button> -->
+                                    <button id='play' type="button" class="btn btn-primary">Play</button>
+                                    <button id="pause" type="button"class="btn btn-warning mt-5 me-3">Pause</button>
+                                    <button id="resume" type="button"class="btn btn-info mt-5 me-3">Resume</button>
+                                    <button id="cancelVoice" type="button" class="btn btn-danger mt-5 me-3">Cancel</button>
                                   </div>
                               </div>
                         </section>
@@ -191,7 +192,8 @@
                             <span data-validation="overall_level_of_health">
                                 <span data-case="required"><br>Please select an answer.</span>
                             </span>
-                            <button class="proxyNext">Click me to test!</button>
+                            <!-- <button id='play' type="button" class="btn btn-primary">Play</button> -->
+                            <button type ='button' class="btn btn-primary proxyNext">Click me to test!</button>
                         
                         <br><br>
                         <div class="submitcontinue">

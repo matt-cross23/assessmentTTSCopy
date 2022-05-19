@@ -10,7 +10,7 @@ let result = [];
 let boundary = document.querySelector(".next");
 let paragraphs = document.querySelectorAll("p");
 let nextButton = document.querySelector(".proxyNext");
-let newQuestion = document.querySelectorAll(".newbutton");
+let newQuestion = document.querySelector(".newQuestion");
 
 const questionObject = {
   utterance1: new SpeechSynthesisUtterance(question[0].textContent),
@@ -42,7 +42,8 @@ console.log(questionObject);
 
 var utterThis = new SpeechSynthesisUtterance(question[0].textContent);
 var utterQueue = new SpeechSynthesisUtterance(question[1].textContent);
-
+utterQueue.rate = 5
+utterThis.rate = 5
 
 console.log(paragraphs);
 
@@ -80,10 +81,18 @@ playButton.addEventListener("click", function (event) {
   console.log(utterThis);
 });
 
-nextButton.addEventListener("click", function (event) {
+newQuestion.addEventListener("click", function (event) {
   event.preventDefault();
   synth.speak(utterQueue);
 });
+
+nextButton.addEventListener('touchstart', function(event){
+  event.preventDefault;
+  synth.speak(utterQueue);
+  window.alert('touch event works');
+});
+
+
 
 // Pause
 document.querySelector("#pause").addEventListener("click", () => {
