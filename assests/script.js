@@ -1,9 +1,7 @@
 console.log("TTS Script connected");
 var synth = window.speechSynthesis;
-console.log(synth)
-var msg = new SpeechSynthesisUtterance('hello')
-var utterThis = new SpeechSynthesisUtterance(questionObject.utterance1);
-
+console.log(synth);
+var msg = new SpeechSynthesisUtterance("hello");
 var playButton = document.querySelector("#play");
 const patientName = document.querySelector(".patientname");
 let patientText = patientName.outerText.toString();
@@ -12,7 +10,9 @@ let result = [];
 let boundary = document.querySelector(".next");
 let paragraphs = document.querySelectorAll("p");
 let nextButton = document.querySelector(".proxyNext");
-let newQuestion = document.querySelectorAll('.newbutton')
+let newQuestion = document.querySelectorAll(".newbutton");
+
+var utterQueue = new SpeechSynthesisUtterance(question[1].textContent);
 
 const questionObject = {
   utterance1: new SpeechSynthesisUtterance(question[0].textContent),
@@ -42,55 +42,50 @@ const questionObject = {
 };
 console.log(questionObject);
 
-
-
+var utterThis = new SpeechSynthesisUtterance(question[0].textContent);
 
 console.log(paragraphs);
 
 function speak() {
-    if (synth.speaking) {
-        console.error("speechSynthesis.speaking");
-        return;
-      }
-      utterThis.onstart = function(event) {
-        console.log('We have started uttering this speech: ' + event.utterance.text);
-      }
-      
-      if (utterThis.value !== "") {
-        console.log(utterThis);
-        // console.log(utterQueue)
-        utterThis.onstart = function (event) {
-          let pending = synth.pending;
-          console.log("The Queue is " + pending);
-        };
-        }
-    utterThis.onend = function (event) {
-        console.log("SpeechSynthesisUtterance.onend" + event.elapsedTime);
-        if ((pending = true)) {
-          synth.speak(questionObject.utterance2);
-        }
-      };
-      utterThis.onerror = function (event) {
-        console.error("SpeechSynthesisUtterance.onerror");
-      };
-      
-    } 
-    speak();
+  if (synth.speaking) {
+    console.error("speechSynthesis.speaking");
+    return;
+  }
+  utterThis.onstart = function (event) {
+    console.log(
+      "We have started uttering this speech: " + event.utterance.text
+    );
+  };
 
-    playButton.addEventListener("click", function (event) {
-     synth.speak(utterThis)
-     console.log(utterThis);
+  if (utterThis.value !== "") {
+    console.log(utterThis);
+    // console.log(utterQueue)
+    utterThis.onstart = function (event) {
+      let pending = synth.pending;
+      console.log("The Queue is " + pending);
+    };
+  }
+  utterThis.onend = function (event) {
+    console.log("SpeechSynthesisUtterance.onend" + event.elapsedTime);
+  };
+  utterThis.onerror = function (event) {
+    console.error("SpeechSynthesisUtterance.onerror");
+  };
+}
+speak();
 
-      event.preventDefault();
-    });
+playButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  synth.speak(utterThis);
+  console.log(utterThis);
+});
 
-    nextButton.addEventListener("click", function (event) {
-      event.preventDefault();
-      synth.resume();
+nextButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  synth.speak(utterQueue);
+});
 
-    });
-
-    // Pause
+// Pause
 document.querySelector("#pause").addEventListener("click", () => {
   window.speechSynthesis.pause();
 });
@@ -103,4 +98,3 @@ document.querySelector("#resume").addEventListener("click", () => {
 document.querySelector("#cancelVoice").addEventListener("click", () => {
   window.speechSynthesis.cancel();
 });
-
