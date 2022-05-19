@@ -2,7 +2,7 @@ console.log("TTS Script connected");
 var synth = window.speechSynthesis;
 console.log(synth)
 var msg = new SpeechSynthesisUtterance('hello')
-var utterThis = new SpeechSynthesisUtterance('Test');
+var utterThis = new SpeechSynthesisUtterance(questionObject.utterance1);
 
 var playButton = document.querySelector("#play");
 const patientName = document.querySelector(".patientname");
@@ -76,7 +76,7 @@ function speak() {
       
     } 
     speak();
-    
+
     playButton.addEventListener("click", function (event) {
      synth.speak(utterThis)
      console.log(utterThis);
