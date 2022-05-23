@@ -12,7 +12,7 @@ let boundary = document.querySelector(".next");
 let paragraphs = document.querySelectorAll("p");
 let nextButton = document.querySelector(".proxyNext");
 let newQuestion = document.querySelector(".newQuestion");
-
+console.log(question)
 
 
 window.speechSynthesis.addEventListener('voiceschanged', function(){
@@ -29,10 +29,7 @@ function highlightContent() {
   }
 }
 
-var utterThis = new SpeechSynthesisUtterance(question[0].textContent);
-var utterQueue = new SpeechSynthesisUtterance(question[1].textContent);
-utterQueue.rate = 1
-utterThis.rate = 1
+
 
 console.log(paragraphs);
 
@@ -44,7 +41,7 @@ const speakAll = (text) => {
   return new Promise(resolve => {
   const speech = new SpeechSynthesisUtterance(text)
   speech.voice = voices.find(voice => voice.lang === 'en-US')
-  speech.rate = 1
+  speech.rate = 9
   window.speechSynthesis.speak(speech)
   speech.addEventListener('start', ()=> {
     console.log('start speaking')
@@ -52,18 +49,36 @@ const speakAll = (text) => {
 
   speech.addEventListener('end', ()=> {
     console.log('stopped speaking')
+    window.speechSynthesis.pause()
     resolve()
   });
 });
 };
 
-const playSpeech = () => {
-  speakAll(question[0].textContent).then(() => {
-    console.log('first question completed')
-    speakAll(question[1].textContent)
-  })
-}
+const playSpeech = async () => {
+  speakAll(question[0].textContent)
+ await Promise.all([
+   speakAll(question[1].textContent),
+   speakAll(question[2].textContent),
+   speakAll(question[3].textContent),
+   speakAll(question[4].textContent),
+   speakAll(question[5].textContent),
+   speakAll(question[6].textContent),
+   speakAll(question[7].textContent),
+   speakAll(question[8].textContent),
+   speakAll(question[9].textContent),
+   speakAll(question[10].textContent),
+   speakAll(question[11].textContent),
+   speakAll(question[12].textContent),
+   speakAll(question[13].textContent),
+   speakAll(question[14].textContent),
+   speakAll(question[15].textContent),
+   speakAll(question[16].textContent),
+   speakAll(question[17].textContent),
+   speakAll(question[18].textContent),
+   speakAll(question[19].textContent),
 
+])}
 playButton.addEventListener("click", function (event) {
   playSpeech()
   highlightContent()
@@ -71,9 +86,8 @@ playButton.addEventListener("click", function (event) {
   })
 
 newQuestion.addEventListener("click", function (event) {
-
+window.speechSynthesis.resume()
   event.preventDefault();
- speakAll(question[1].textContent)
 });
 
 // nextButton.addEventListener('touchstart', function(event){
