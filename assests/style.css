@@ -92,3 +92,6 @@ label {
   z-index:100;
 }
 
+::selection {
+  background-color:#FFFF00;
+}

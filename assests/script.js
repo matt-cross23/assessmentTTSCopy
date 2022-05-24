@@ -27,11 +27,53 @@ globalWords.push(trimP)
 
 console.log(globalWords)
 
-
 function highlightContent(){
-console.log(document.body.innerHTML.replace())
+
+// First let's get all text nodes in the page.
+const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+const allTextNodes = [];
+let currentNode = treeWalker.nextNode();
+while (currentNode) {
+  // There may also be hidden text nodes in the page
+  // like text inside a <script> tag. So ignore those.
+  if (getComputedStyle(currentNode.parentNode).display !== 'none') {
+    allTextNodes.push(currentNode);
+  }
+  currentNode = treeWalker.nextNode();
 }
-highlightContent()
+
+// Then, loop through them, every time splitting them into
+// individual words, and creating a list of words per node.
+const allWords = [];
+for (const textNode of allTextNodes) {
+  for (const word of textNode.textContent.matchAll(/[a-zA-Z]+/g)) {
+    allWords.push({
+      word: word[0],
+      parentNode: textNode,
+      offset: word.index
+    });
+  }
+}
+
+// Finally, loop through the words and highlight them one by
+// one by creating a Range and Selection object.
+let index = 0;
+const range = new Range();
+
+setInterval(() => {
+  if (index >= allWords.length) {
+    index = 0;
+  }
+  const {word, parentNode, offset} = allWords[index];
+  
+  range.setStart(parentNode, offset);
+  range.setEnd(parentNode, offset + word.length);
+  document.getSelection().removeAllRanges();
+  document.getSelection().addRange(range);
+  
+  index++;
+}, 100);
+}
 
 window.speechSynthesis.addEventListener('voiceschanged', function () {
   voices = window.speechSynthesis.getVoices();
@@ -88,9 +130,10 @@ const playSpeech = async () => {
     speakAll(question[19].textContent),
   ])
 }
+
 playButton.addEventListener("click", function (event) {
-  playSpeech()
-  highlightContent()
+  playSpeech();
+   highlightContent();
   event.preventDefault();
 })
 
@@ -112,7 +155,7 @@ document.querySelector("#resume").addEventListener("click", () => {
 
 // Cancel
 document.querySelector("#cancelVoice").addEventListener("click", () => {
-  window.speechSynthesis.cancel();
+  synth.cancel()
 });
 
 const t1 = performance.now();
