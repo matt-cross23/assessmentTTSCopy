@@ -12,20 +12,10 @@ let voices = [];
 let boundary = document.querySelector(".next");
 let nextButton = document.querySelector(".proxyNext");
 let newQuestion = document.querySelector(".newQuestion");
+let startHighlight = document.querySelector('#startAssessment')
 console.log(question)
 
-// Highlight global variables
-let wordIndex = 0;
-let globalWords = [];
-let paragraphs = document.querySelectorAll("p");
-// For list of highlighted words
-for(let i = 0; i < paragraphs.length; i++){
-let paragraphText = paragraphs[i].innerHTML.split(' ').toString();
-let trimP = paragraphText.replace(/\,+/g, " ")
-globalWords.push(trimP)
-};
 
-console.log(globalWords)
 
 function highlightContent(){
 
@@ -41,6 +31,7 @@ while (currentNode) {
   }
   currentNode = treeWalker.nextNode();
 }
+console.log(allTextNodes)
 
 // Then, loop through them, every time splitting them into
 // individual words, and creating a list of words per node.
@@ -60,19 +51,21 @@ for (const textNode of allTextNodes) {
 let index = 0;
 const range = new Range();
 
+
+
 setInterval(() => {
   if (index >= allWords.length) {
     index = 0;
   }
   const {word, parentNode, offset} = allWords[index];
-  
-  range.setStart(parentNode, offset);
+  // parentNode, offset original range
+  console.log(parentNode);
+  range.setStart(startHighlight, 0);
   range.setEnd(parentNode, offset + word.length);
   document.getSelection().removeAllRanges();
   document.getSelection().addRange(range);
-  
   index++;
-}, 100);
+}, 300);
 }
 
 window.speechSynthesis.addEventListener('voiceschanged', function () {
@@ -90,7 +83,7 @@ const speakAll = (text) => {
   return new Promise(resolve => {
     const speech = new SpeechSynthesisUtterance(text)
     speech.voice = voices.find(voice => voice.lang === 'en-US')
-    speech.rate = 9
+    speech.rate = 1
     window.speechSynthesis.speak(speech)
     // if(speechSynthesis.speak){
     // Add notification if api is already speaking
