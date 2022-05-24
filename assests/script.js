@@ -10,13 +10,28 @@ const question = document.querySelectorAll(".question");
 let result = [];
 let voices = [];
 let boundary = document.querySelector(".next");
-let paragraphs = document.querySelectorAll("p");
 let nextButton = document.querySelector(".proxyNext");
 let newQuestion = document.querySelector(".newQuestion");
-let questionArray = [];
-
 console.log(question)
 
+// Highlight global variables
+let wordIndex = 0;
+let globalWords = [];
+let paragraphs = document.querySelectorAll("p");
+// For list of highlighted words
+for(let i = 0; i < paragraphs.length; i++){
+let paragraphText = paragraphs[i].innerHTML.split(' ').toString();
+let trimP = paragraphText.replace(/\,+/g, " ")
+globalWords.push(trimP)
+};
+
+console.log(globalWords)
+
+
+function highlightContent(){
+console.log(document.body.innerHTML.replace())
+}
+highlightContent()
 
 window.speechSynthesis.addEventListener('voiceschanged', function () {
   voices = window.speechSynthesis.getVoices();
@@ -79,9 +94,6 @@ playButton.addEventListener("click", function (event) {
   event.preventDefault();
 })
 
-function highlightContent(){
-  
-}
 
 
 newQuestion.addEventListener("click", function (event) {
@@ -104,4 +116,12 @@ document.querySelector("#cancelVoice").addEventListener("click", () => {
 });
 
 const t1 = performance.now();
+
 console.log(`Call to finish script took ${t1 - t0} milliseconds.`);
+console.log(JSON.stringify(window.performance.memory, ['totalJSHeapSize', 'usedJSHeapSize', 'jsHeapSizeLimit']));
+
+// async function run() {
+//   const result = await performance.measureUserAgentSpecificMemory();
+//   console.log(result);
+// }
+// run();
