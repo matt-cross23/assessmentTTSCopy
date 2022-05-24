@@ -60,12 +60,12 @@ setInterval(() => {
   const {word, parentNode, offset} = allWords[index];
   // parentNode, offset original range
   console.log(parentNode);
-  range.setStart(startHighlight, 0);
+  range.setStart(startHighlight, 1);
   range.setEnd(parentNode, offset + word.length);
   document.getSelection().removeAllRanges();
   document.getSelection().addRange(range);
   index++;
-}, 300);
+}, 325);
 }
 
 window.speechSynthesis.addEventListener('voiceschanged', function () {
@@ -83,7 +83,7 @@ const speakAll = (text) => {
   return new Promise(resolve => {
     const speech = new SpeechSynthesisUtterance(text)
     speech.voice = voices.find(voice => voice.lang === 'en-US')
-    speech.rate = 1
+    speech.rate = 1.25
     window.speechSynthesis.speak(speech)
     // if(speechSynthesis.speak){
     // Add notification if api is already speaking
