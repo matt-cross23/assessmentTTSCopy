@@ -9,6 +9,7 @@ let patientText = patientName.outerText.toString();
 const question = document.querySelectorAll(".question");
 let result = [];
 let voices = [];
+let globalWords = [];
 let boundary = document.querySelector(".next");
 let nextButton = document.querySelector(".proxyNext");
 let newQuestion = document.querySelector(".newQuestion");
@@ -22,6 +23,7 @@ function highlightContent(){
 // First let's get all text nodes in the page.
 const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
 const allTextNodes = [];
+console.log(treeWalker)
 let currentNode = treeWalker.nextNode();
 while (currentNode) {
   // There may also be hidden text nodes in the page
@@ -60,7 +62,7 @@ setInterval(() => {
   const {word, parentNode, offset} = allWords[index];
   // parentNode, offset original range
   console.log(parentNode);
-  range.setStart(startHighlight, 1);
+  range.setStart(parentNode, offset);
   range.setEnd(parentNode, offset + word.length);
   document.getSelection().removeAllRanges();
   document.getSelection().addRange(range);
@@ -88,8 +90,9 @@ const speakAll = (text) => {
     // if(speechSynthesis.speak){
     // Add notification if api is already speaking
     // });    
-    speech.addEventListener('boundary', () => {
-  
+    speech.addEventListener('boundary', (event) => {
+      let e = document.getElementByClass('mark')
+      let word = 
     })
     speech.addEventListener('end', () => {
       console.log('stopped speaking')
