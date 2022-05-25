@@ -92,7 +92,6 @@ const speakAll = (text) => {
     // });    
     speech.addEventListener('boundary', (event) => {
       let e = document.getElementByClass('mark')
-      let word = 
     })
     speech.addEventListener('end', () => {
       console.log('stopped speaking')
