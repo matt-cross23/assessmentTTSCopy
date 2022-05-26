@@ -88,8 +88,8 @@ const speakAll = (text) => {
     // if(speechSynthesis.speak){
     // Add notification if api is already speaking
     // });    
-    speech.addEventListener('boundary', () => {
-  
+    speech.addEventListener('boundary', (event) => {
+      console.log(event.charIndex, event.name)
     })
     speech.addEventListener('end', () => {
       console.log('stopped speaking')
