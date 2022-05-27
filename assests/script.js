@@ -1,7 +1,6 @@
 const t0 = performance.now();
 console.log("TTS Script connected");
-var synth = window.speechSynthesis;
-console.log(synth);
+let synth = window.speechSynthesis
 var msg = new SpeechSynthesisUtterance("hello");
 var playButton = document.querySelector("#play");
 const patientName = document.querySelector(".patientname");
@@ -9,66 +8,35 @@ let patientText = patientName.outerText.toString();
 const question = document.querySelectorAll(".question");
 let result = [];
 let voices = [];
-let globalWords = [];
 let boundary = document.querySelector(".next");
 let nextButton = document.querySelector(".proxyNext");
 let newQuestion = document.querySelector(".newQuestion");
-let startHighlight = document.querySelector('#startAssessment')
 console.log(question)
+// For Highlight 
+let wordIndex = 0;
+let globalWords = [];
+let pageText = $('body').text()
+console.log(pageText)
 
+// Get all 
 
+function getWordAt(str, pos) {
+  // Perform type conversions.
+  str = String(str);
+  pos = Number(pos) >>> 0;
 
-function highlightContent(){
+  // Search for the word's beginning and end.
+  var left = str.slice(0, pos + 1).search(/\S+$/),
+      right = str.slice(pos).search(/\s/);
 
-// First let's get all text nodes in the page.
-const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-const allTextNodes = [];
-console.log(treeWalker)
-let currentNode = treeWalker.nextNode();
-while (currentNode) {
-  // There may also be hidden text nodes in the page
-  // like text inside a <script> tag. So ignore those.
-  if (getComputedStyle(currentNode.parentNode).display !== 'none') {
-    allTextNodes.push(currentNode);
+  // The last word in the string is a special case.
+  if (right < 0) {
+      return str.slice(left);
   }
-  currentNode = treeWalker.nextNode();
-}
-console.log(allTextNodes)
-
-// Then, loop through them, every time splitting them into
-// individual words, and creating a list of words per node.
-const allWords = [];
-for (const textNode of allTextNodes) {
-  for (const word of textNode.textContent.matchAll(/[a-zA-Z]+/g)) {
-    allWords.push({
-      word: word[0],
-      parentNode: textNode,
-      offset: word.index
-    });
-  }
+  // Return the word, using the located bounds to extract it from the string.
+  return str.slice(left, right + pos);
 }
 
-// Finally, loop through the words and highlight them one by
-// one by creating a Range and Selection object.
-let index = 0;
-const range = new Range();
-
-
-
-setInterval(() => {
-  if (index >= allWords.length) {
-    index = 0;
-  }
-  const {word, parentNode, offset} = allWords[index];
-  // parentNode, offset original range
-  console.log(parentNode);
-  range.setStart(parentNode, offset);
-  range.setEnd(parentNode, offset + word.length);
-  document.getSelection().removeAllRanges();
-  document.getSelection().addRange(range);
-  index++;
-}, 325);
-}
 
 window.speechSynthesis.addEventListener('voiceschanged', function () {
   voices = window.speechSynthesis.getVoices();
@@ -91,45 +59,42 @@ const speakAll = (text) => {
     // Add notification if api is already speaking
     // });    
     speech.addEventListener('boundary', (event) => {
-      let e = document.getElementByClass('mark')
-    })
+     console.log("Character index is " + event.charIndex, "Name of boundary is " + event.name, "Elapsed time " + event.elapsedTime)
+   var e = pageText
+    var word = getWordAt(e.value,event.charIndex);
+    // Show Speaking word : x
+    document.getElementById("word").innerHTML = word;
+    //Increase index of span to highlight
+    console.info(globalWords[wordIndex]);
+
+    try{
+        document.getElementById("word_span_"+wordIndex).style.color = "blue";
+    }catch(e){}
+
+    wordIndex++;
+    
+});
+
     speech.addEventListener('end', () => {
       console.log('stopped speaking')
-      window.speechSynthesis.pause()
+      // window.speechSynthesis.pause()
       resolve()
     });
   });
 };
 
 const playSpeech = async () => {
-  speakAll(question[0].textContent)
-  await Promise.all([
-    speakAll(question[1].textContent),
-    speakAll(question[2].textContent),
-    speakAll(question[3].textContent),
-    speakAll(question[4].textContent),
-    speakAll(question[5].textContent),
-    speakAll(question[6].textContent),
-    speakAll(question[7].textContent),
-    speakAll(question[8].textContent),
-    speakAll(question[9].textContent),
-    speakAll(question[10].textContent),
-    speakAll(question[11].textContent),
-    speakAll(question[12].textContent),
-    speakAll(question[13].textContent),
-    speakAll(question[14].textContent),
-    speakAll(question[15].textContent),
-    speakAll(question[16].textContent),
-    speakAll(question[17].textContent),
-    speakAll(question[18].textContent),
-    speakAll(question[19].textContent),
-  ])
+  speakAll(pageText)
+  
 }
 
 playButton.addEventListener("click", function (event) {
   playSpeech();
-   highlightContent();
   event.preventDefault();
+  let text = pageText;
+  let words = text.split(' ');
+  spokenTextArray = words;
+  console.log(spokenTextArray)
 })
 
 
@@ -158,8 +123,3 @@ const t1 = performance.now();
 console.log(`Call to finish script took ${t1 - t0} milliseconds.`);
 console.log(JSON.stringify(window.performance.memory, ['totalJSHeapSize', 'usedJSHeapSize', 'jsHeapSizeLimit']));
 
-// async function run() {
-//   const result = await performance.measureUserAgentSpecificMemory();
-//   console.log(result);
-// }
-// run();
