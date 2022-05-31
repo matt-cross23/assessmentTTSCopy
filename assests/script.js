@@ -47,64 +47,70 @@ const speakAll = (text) => {
     // if(speechSynthesis.speak){
     // Add notification if api is already speaking
     // });    
-    speech.addEventListener('boundary', (event) => {
-      // First let's get all text nodes in the page.
-const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, function(node) {
-  return (node.innerText !== ' ') ?
-  NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
-} );
-console.log(treeWalker)
-const allTextNodes = [];
-let currentNode = treeWalker.nextNode();
-while (currentNode) {
-  // There may also be hidden text nodes in the page
-  // like text inside a <script> tag. So ignore those.
-  if (getComputedStyle(currentNode.parentNode).display !== 'none') {
-    allTextNodes.push(currentNode);
-  }
-  currentNode = treeWalker.nextNode();
-}
+//     speech.addEventListener('boundary', (event) => {
+//       // First let's get all text nodes in the page.
+// const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, function(node) {
+//   return (node.innerText !== ' ') ?
+//   NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+// } );
+// console.log(treeWalker)
+// const allTextNodes = [];
+// let currentNode = treeWalker.nextNode();
+// while (currentNode) {
+//   // There may also be hidden text nodes in the page
+//   // like text inside a <script> tag. So ignore those.
+//   if (getComputedStyle(currentNode.parentNode).display !== 'none') {
+//     allTextNodes.push(currentNode);
+//   }
+//   currentNode = treeWalker.nextNode();
+// }
 
-// Then, loop through them, every time splitting them into
-// individual words, and creating a list of words per node.
-const allWords = [];
-for (const textNode of allTextNodes) {
-  for (const word of textNode.textContent.matchAll(/[a-zA-Z]+/g)) {
-    allWords.push({
-      word: word[0],
-      parentNode: textNode,
-      offset: word.index
-    });
-  }
-}
-console.log(allWords);
+// // Then, loop through them, every time splitting them into
+// // individual words, and creating a list of words per node.
+// const allWords = [];
+// for (const textNode of allTextNodes) {
+//   for (const word of textNode.textContent.matchAll(/[a-zA-Z]+/g)) {
+//     allWords.push({
+//       word: word[0],
+//       parentNode: textNode,
+//       offset: word.index
+//     });
+//   }
+// }
+// console.log(allWords);
 
-// Finally, loop through the words and highlight them one by
-// one by creating a Range and Selection object.
-let index = 0;
-const range = new Range();
-setInterval(() => {
-  if (index >= allWords.length) {
-    index = 0;
-  }
-  const {word, parentNode, offset} = allWords[index];
-  console.log('the word is ' + word)
-  console.log(parentNode) 
-  console.log(offset)
-  range.setStart(parentNode, offset);
-  range.setEnd(parentNode, offset + word.length);
-  document.getSelection().addRange(range);
+// // Finally, loop through the words and highlight them one by
+// // one by creating a Range and Selection object.
+// let index = 0;
+// const range = new Range();
+// setInterval(() => {
+//   if (index >= allWords.length) {
+//     index = 0;
+//   }
+//   const {word, parentNode, offset} = allWords[index];
+//   console.log('the word is ' + word)
+//   console.log(parentNode) 
+//   console.log(offset)
+//   range.setStart(parentNode, offset);
+//   range.setEnd(parentNode, offset + word.length);
+//   document.getSelection().addRange(range);
   
-  index++;
-  console.log(event.charIndex)
-}, 500);
-  });
+//   index++;
+//   console.log(event.charIndex)
+// }, 500);
+  // });
 
     speech.addEventListener('end', () => {
       console.log('stopped speaking')
       // window.speechSynthesis.pause()
       resolve()
     });
+    speech.addEventListener('onboundary',(event) => {
+      let e = question;
+      let word = getWordAt(e.value, event.charIndex);
+          question.innerHTML = word
+
+    })
   });
 };
 
@@ -114,8 +120,13 @@ const playSpeech = async () => {
 }
 
 playButton.addEventListener("click", function (event) {
-  playSpeech();
   event.preventDefault();
+   playSpeech();
+   let text = pageText.split(' ');
+   globalWords = text
+   console.log(globalWords)
+
+
 })
 
 
@@ -138,6 +149,23 @@ document.querySelector("#resume").addEventListener("click", () => {
 document.querySelector("#cancelVoice").addEventListener("click", () => {
   synth.cancel()
 });
+
+function getWordAt(str, pos) {
+  // Perform type conversions.
+  str = String(str);
+  pos = Number(pos) >>> 0;
+
+  // Search for the word's beginning and end.
+  var left = str.slice(0, pos + 1).search(/\S+$/),
+      right = str.slice(pos).search(/\s/);
+
+  // The last word in the string is a special case.
+  if (right < 0) {
+      return str.slice(left);
+  }
+  // Return the word, using the located bounds to extract it from the string.
+  return str.slice(left, right + pos);
+}
 
 const t1 = performance.now();
 
