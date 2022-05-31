@@ -6,36 +6,25 @@ var playButton = document.querySelector("#play");
 const patientName = document.querySelector(".patientname");
 let patientText = patientName.outerText.toString();
 const question = document.querySelectorAll(".question");
-let result = [];
+let domArray = [];
+let result = []
 let voices = [];
 let boundary = document.querySelector(".next");
 let nextButton = document.querySelector(".proxyNext");
 let newQuestion = document.querySelector(".newQuestion");
 console.log(question)
+
 // For Highlight 
 let wordIndex = 0;
 let globalWords = [];
 let pageText = $('body').text()
-console.log(pageText)
 
-// Get all 
+// 
+for(let i = 0; i < question.length; i++){
+result.push(question[i].textContent)
 
-function getWordAt(str, pos) {
-  // Perform type conversions.
-  str = String(str);
-  pos = Number(pos) >>> 0;
-
-  // Search for the word's beginning and end.
-  var left = str.slice(0, pos + 1).search(/\S+$/),
-      right = str.slice(pos).search(/\s/);
-
-  // The last word in the string is a special case.
-  if (right < 0) {
-      return str.slice(left);
-  }
-  // Return the word, using the located bounds to extract it from the string.
-  return str.slice(left, right + pos);
 }
+console.log(result)
 
 
 window.speechSynthesis.addEventListener('voiceschanged', function () {
@@ -53,27 +42,63 @@ const speakAll = (text) => {
   return new Promise(resolve => {
     const speech = new SpeechSynthesisUtterance(text)
     speech.voice = voices.find(voice => voice.lang === 'en-US')
-    speech.rate = 1.25
+    speech.rate = 1.5
     window.speechSynthesis.speak(speech)
     // if(speechSynthesis.speak){
     // Add notification if api is already speaking
     // });    
     speech.addEventListener('boundary', (event) => {
-     console.log("Character index is " + event.charIndex, "Name of boundary is " + event.name, "Elapsed time " + event.elapsedTime)
-   var e = pageText
-    var word = getWordAt(e.value,event.charIndex);
-    // Show Speaking word : x
-    document.getElementById("word").innerHTML = word;
-    //Increase index of span to highlight
-    console.info(globalWords[wordIndex]);
+      // First let's get all text nodes in the page.
+const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, function(node) {
+  return (node.innerText !== ' ') ?
+  NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+} );
+console.log(treeWalker)
+const allTextNodes = [];
+let currentNode = treeWalker.nextNode();
+while (currentNode) {
+  // There may also be hidden text nodes in the page
+  // like text inside a <script> tag. So ignore those.
+  if (getComputedStyle(currentNode.parentNode).display !== 'none') {
+    allTextNodes.push(currentNode);
+  }
+  currentNode = treeWalker.nextNode();
+}
 
-    try{
-        document.getElementById("word_span_"+wordIndex).style.color = "blue";
-    }catch(e){}
+// Then, loop through them, every time splitting them into
+// individual words, and creating a list of words per node.
+const allWords = [];
+for (const textNode of allTextNodes) {
+  for (const word of textNode.textContent.matchAll(/[a-zA-Z]+/g)) {
+    allWords.push({
+      word: word[0],
+      parentNode: textNode,
+      offset: word.index
+    });
+  }
+}
+console.log(allWords);
 
-    wordIndex++;
-    
-});
+// Finally, loop through the words and highlight them one by
+// one by creating a Range and Selection object.
+let index = 0;
+const range = new Range();
+setInterval(() => {
+  if (index >= allWords.length) {
+    index = 0;
+  }
+  const {word, parentNode, offset} = allWords[index];
+  console.log('the word is ' + word)
+  console.log(parentNode) 
+  console.log(offset)
+  range.setStart(parentNode, offset);
+  range.setEnd(parentNode, offset + word.length);
+  document.getSelection().addRange(range);
+  
+  index++;
+  console.log(event.charIndex)
+}, 500);
+  });
 
     speech.addEventListener('end', () => {
       console.log('stopped speaking')
@@ -91,10 +116,6 @@ const playSpeech = async () => {
 playButton.addEventListener("click", function (event) {
   playSpeech();
   event.preventDefault();
-  let text = pageText;
-  let words = text.split(' ');
-  spokenTextArray = words;
-  console.log(spokenTextArray)
 })
 
 
@@ -121,5 +142,5 @@ document.querySelector("#cancelVoice").addEventListener("click", () => {
 const t1 = performance.now();
 
 console.log(`Call to finish script took ${t1 - t0} milliseconds.`);
-console.log(JSON.stringify(window.performance.memory, ['totalJSHeapSize', 'usedJSHeapSize', 'jsHeapSizeLimit']));
 
+console.log(JSON.stringify(window.performance.memory, ['totalJSHeapSize', 'usedJSHeapSize', 'jsHeapSizeLimit']));
