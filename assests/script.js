@@ -51,7 +51,7 @@ const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT
   return (node.innerText !== ' ') ?
   NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
 });
-console.log(treeWalker)
+// console.log(treeWalker)
 const allTextNodes = [];
 let currentNode = treeWalker.nextNode();
 while (currentNode) {
@@ -71,11 +71,12 @@ for (const textNode of allTextNodes) {
     allWords.push({
       word: word[0],
       parentNode: textNode,
-      offset: word.index
+      offset: word.index,
     });
+  
   }
+
 }
-console.log(allWords);
 
 
 // Finally, loop through the words and highlight them one by
@@ -90,9 +91,11 @@ setInterval(() => {
   
   range.setStart(parentNode, offset);
   range.setEnd(parentNode, offset + word.length);
-  document.getSelection().addRange(range);
   
+  document.getSelection().addRange(range);
   index++;
+  console.log(word)
+
 }, 475);
 });
 
@@ -102,14 +105,31 @@ speech.addEventListener('end', () => {
       // window.speechSynthesis.pause()
       resolve()
     });
-    speech.addEventListener('onboundary',(event) => {
-      let e = question;
-      let word = getWordAt(e.value, event.charIndex);
-          question.innerHTML = word
-
-    })
+    speech.addEventListener('boundary', (event) => {
+      const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, function(node) {
+        return (node.nodeValue.includes("\n    ")) ?
+        NodeFilter.FILTER_REJECT: NodeFilter.FILTER_ACCEPT;
+      });
+      // console.log(treeWalker)
+      const allTextNodes = [];
+      let currentNode = treeWalker.nextNode();
+      while (currentNode) {
+        // There may also be hidden text nodes in the page
+        // like text inside a <script> tag. So ignore those.
+        if (getComputedStyle(currentNode.parentNode).display !== 'none') {
+          allTextNodes.push(currentNode);
+        }
+        currentNode = treeWalker.nextNode();
+      }
+    let textNodeHTML = allTextNodes[1].parentElement
+    console.log(allTextNodes[1].parentElement.outerHTML)
+    textNodeHTML.classList.add('mark');
+    console.log(allTextNodes);  
   });
-};
+
+
+  });
+}
 
 const playSpeech = async () => {
   speakAll(pageText)
