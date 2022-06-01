@@ -123,8 +123,12 @@ speech.addEventListener('end', () => {
       }
     let textNodeHTML = allTextNodes[1].parentElement
     console.log(allTextNodes[1].parentElement.outerHTML)
+    
+    setInterval(() => {
     textNodeHTML.classList.add('mark');
-    console.log(allTextNodes);  
+    console.log(allTextNodes);
+    },100)  
+    
   });
 
 
