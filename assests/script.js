@@ -20,7 +20,7 @@ let globalWords = [];
 let pageText = $('body').text().trim().replace(/\n/g, '')
 console.log(pageText)
 
-// 
+
 for(let i = 0; i < question.length; i++){
 result.push(question[i].textContent)
 
@@ -45,7 +45,7 @@ const speakAll = (text) => {
     speech.voice = voices.find(voice => voice.lang === 'en-US')
     speech.rate = .75
     window.speechSynthesis.speak(speech) 
-    speech.addEventListener('boundary', (event) => {
+   /* speech.addEventListener('boundary', (event) => {
       // First let's get all text nodes in the page.
 const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, function(node) {
   return (node.innerText !== ' ') ?
@@ -98,37 +98,16 @@ setInterval(() => {
 
 }, 475);
 });
-
+*/
 
 speech.addEventListener('end', () => {
       console.log('stopped speaking')
       // window.speechSynthesis.pause()
       resolve()
     });
-    speech.addEventListener('boundary', (event) => {
-      const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, function(node) {
-        return (node.nodeValue.includes("\n    ")) ?
-        NodeFilter.FILTER_REJECT: NodeFilter.FILTER_ACCEPT;
-      });
-      // console.log(treeWalker)
-      const allTextNodes = [];
-      let currentNode = treeWalker.nextNode();
-      while (currentNode) {
-        // There may also be hidden text nodes in the page
-        // like text inside a <script> tag. So ignore those.
-        if (getComputedStyle(currentNode.parentNode).display !== 'none') {
-          allTextNodes.push(currentNode);
-        }
-        currentNode = treeWalker.nextNode();
-      }
-    let textNodeHTML = allTextNodes[1].parentElement
-    console.log(allTextNodes[1].parentElement.outerHTML)
-    
-    setInterval(() => {
-    textNodeHTML.classList.add('mark');
-    console.log(allTextNodes);
-    },100)  
-    
+    speech.addEventListener('boundary', (e) => {
+      let words = e.target.text.substr(e.charIndex).match(/^.+?\b/)[0]
+      console.log(words)
   });
 
 
@@ -177,3 +156,26 @@ const t1 = performance.now();
 console.log(`Call to finish script took ${t1 - t0} milliseconds.`);
 
 console.log(JSON.stringify(window.performance.memory, ['totalJSHeapSize', 'usedJSHeapSize', 'jsHeapSizeLimit']));
+
+   //   const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, function(node) {
+    //     return (node.nodeValue.includes("\n    ")) ?
+    //     NodeFilter.FILTER_REJECT: NodeFilter.FILTER_ACCEPT;
+    //   });
+    //   // console.log(treeWalker)
+    //   const allTextNodes = [];
+    //   let currentNode = treeWalker.nextNode();
+    //   while (currentNode) {
+    //     // There may also be hidden text nodes in the page
+    //     // like text inside a <script> tag. So ignore those.
+    //     if (getComputedStyle(currentNode.parentNode).display !== 'none') {
+    //       allTextNodes.push(currentNode);
+    //     }
+    //     currentNode = treeWalker.nextNode();
+    //   }
+    // let textNodeHTML = allTextNodes[1].parentElement
+    // console.log(allTextNodes[1].parentElement.outerHTML)
+    // textNodeHTML.classList.add('mark');
+
+    // setTimeout(() => {
+    // textNodeHTML.classList.remove('mark')
+    // },100)  
