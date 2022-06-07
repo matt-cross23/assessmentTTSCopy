@@ -32,20 +32,20 @@
         <div id='bodyassess' class="assessbody" >
             <!-- Speech text starts -->
             <section class="speechwrapper">
-            <h4 class="patientname">Test A.</h4>
-            <h1 class="assessmentname" >Lifestyle Assessment Short Form</h1>
+            <h4 class="patientname" id="text">Test A.</h4>
+            <h1 class="assessmentname"  id="text">Lifestyle Assessment Short Form</h1>
             
             <div class="maincontainer">
 
                                     <div class="question assessment-cover-page">
                                                         <span id = "startAssessment" class="grey" style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                                                         
-                                                    <h2>Let's Get Started!</h2>
+                                                    <h2  id="text">Let's Get Started!</h2>
                         <p>Answer the following questions as honestly and accurately as you can. If you need any assistance, please ask your counselor.</p>
                         <break time="200ms"/>
                         <br>
                         <div class="submitcontinue">
-                            <button class="newbutton next auto button green newQuestion"
+                            <button  id="text" class="newbutton next auto button green newQuestion"
                                     onclick="$(this).closest('.assessment-cover-page').addClass('hide');$('#assessment-form-section').removeClass('hide');">
                                 Start Assessments
                             </button>
@@ -81,7 +81,7 @@
                     <span data-case="failed">Could not save form.</span>
                 </span>
 
-                                                                        <div class="question" id="question_overall_level_of_health">
+                                                                        <div  id="text" class="question" id="question_overall_level_of_health">
                         <div class="lilheader">
                                                              <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                                 <span>&bull;</span>
@@ -90,8 +90,8 @@
                             </span>
                         </div>
 
-                        <h2>Overall Health</h2>
-                        <p>
+                        <h2  id="text" >Overall Health</h2>
+                        <p  id="text">
                                                             Please select your current overall LEVEL of HEALTH.
                                                                                         <br>
                                 <span style="font-size:12px;">Rate from 0 Very Poor Health to 10 Excellent Health</span>

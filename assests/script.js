@@ -32,8 +32,7 @@ window.speechSynthesis.addEventListener('voiceschanged', function () {
   voices = window.speechSynthesis.getVoices();
   console.log(voices)
 })
-
-
+let originalText = pageText
 
 // Update speech function to be less specific by 
 // Pass through html element to function so that it can read it 
@@ -45,60 +44,6 @@ const speakAll = (text) => {
     speech.voice = voices.find(voice => voice.lang === 'en-US')
     speech.rate = .75
     window.speechSynthesis.speak(speech) 
-   /* speech.addEventListener('boundary', (event) => {
-      // First let's get all text nodes in the page.
-const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, function(node) {
-  return (node.innerText !== ' ') ?
-  NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
-});
-// console.log(treeWalker)
-const allTextNodes = [];
-let currentNode = treeWalker.nextNode();
-while (currentNode) {
-  // There may also be hidden text nodes in the page
-  // like text inside a <script> tag. So ignore those.
-  if (getComputedStyle(currentNode.parentNode).display !== 'none') {
-    allTextNodes.push(currentNode);
-  }
-  currentNode = treeWalker.nextNode();
-}
-
-// Then, loop through them, every time splitting them into
-// individual words, and creating a list of words per node.
-const allWords = [];
-for (const textNode of allTextNodes) {
-  for (const word of textNode.textContent.matchAll(/[a-zA-Z]+/g)) {
-    allWords.push({
-      word: word[0],
-      parentNode: textNode,
-      offset: word.index,
-    });
-  
-  }
-
-}
-
-
-// Finally, loop through the words and highlight them one by
-// one by creating a Range and Selection object.
-let index = 0;
-const range = new Range();
-setInterval(() => {
-  if (index >= allWords.length) {
-    index = 0;
-  }
-  const {word, parentNode, offset} = allWords[index];
-  
-  range.setStart(parentNode, offset);
-  range.setEnd(parentNode, offset + word.length);
-  
-  document.getSelection().addRange(range);
-  index++;
-  console.log(word)
-
-}, 475);
-});
-*/
 
 speech.addEventListener('end', () => {
       console.log('stopped speaking')
@@ -109,7 +54,16 @@ speech.addEventListener('end', () => {
       let words = e.target.text.substr(e.charIndex).match(/^.+?\b/)[0]
       console.log(words)
   });
+  const highlightBackground = sample => `<span style="background-color:yellow;">${sample}</span>`
+  const highlight = (text, from, to) => {
+    let replacement = highlightBackground(text.slice(from, to))
+    return text.substring(0, from) + replacement + text.substring(to)
+  }
+    speech.addEventListener('boundary', (event) => {
+      const { charIndex, charLength } = event
+      text.innerHTML = highlight(originalText, charIndex, charIndex + charLength)
 
+    });
 
   });
 }
@@ -157,25 +111,4 @@ console.log(`Call to finish script took ${t1 - t0} milliseconds.`);
 
 console.log(JSON.stringify(window.performance.memory, ['totalJSHeapSize', 'usedJSHeapSize', 'jsHeapSizeLimit']));
 
-   //   const treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, function(node) {
-    //     return (node.nodeValue.includes("\n    ")) ?
-    //     NodeFilter.FILTER_REJECT: NodeFilter.FILTER_ACCEPT;
-    //   });
-    //   // console.log(treeWalker)
-    //   const allTextNodes = [];
-    //   let currentNode = treeWalker.nextNode();
-    //   while (currentNode) {
-    //     // There may also be hidden text nodes in the page
-    //     // like text inside a <script> tag. So ignore those.
-    //     if (getComputedStyle(currentNode.parentNode).display !== 'none') {
-    //       allTextNodes.push(currentNode);
-    //     }
-    //     currentNode = treeWalker.nextNode();
-    //   }
-    // let textNodeHTML = allTextNodes[1].parentElement
-    // console.log(allTextNodes[1].parentElement.outerHTML)
-    // textNodeHTML.classList.add('mark');
-
-    // setTimeout(() => {
-    // textNodeHTML.classList.remove('mark')
-    // },100)  
+ 
