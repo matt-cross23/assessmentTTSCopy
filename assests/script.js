@@ -4,9 +4,7 @@ let synth = window.speechSynthesis
 var msg = new SpeechSynthesisUtterance("hello");
 var playButton = document.querySelector("#play");
 const patientName = document.querySelector(".patientname");
-let patientText = patientName.outerText.toString();
 const question = document.querySelectorAll(".question");
-let domArray = [];
 let result = []
 let voices = [];
 let boundary = document.querySelector(".next");
@@ -22,11 +20,11 @@ console.log(pageText)
 
 // Highlight v2
 
-const highlightBackground = sample => `<span style="background-color:yellow;">${sample}</span>`
-const highlight = (text, from, to) => {
-  let replacement = highlightBackground(text.slice(from, to))
-  return text.substring(0, from) + replacement + text.substring(to)
-}
+// const highlight = (text, from, to) => {
+//   let replacement = highlightBackground(text.slice(from, to))
+//   return text.substring(0, from) + replacement + text.substring(to)
+// }
+// const highlightBackground = sample => `<span style="background-color:yellow;">${sample}</span>`
 
 
 window.speechSynthesis.addEventListener('voiceschanged', function () {
@@ -54,7 +52,7 @@ const speakAll = (text) => {
 
 
     speech.addEventListener('boundary', (event) => {
-      const { charIndex, charLength } = event
+      const { charIndex, charLength } = event;
       text.innerHTML = highlight(originalText, charIndex, charIndex + charLength)
 
     });
@@ -62,26 +60,15 @@ const speakAll = (text) => {
   });
 }
 
-let text = document.getElementById('text')
-let originalText = text.innerText
-const playSpeech = async () => {
-  speakAll(originalText)
 
-}
+// const playSpeech = async () => {
+//   speakAll(pageText)
+// }
 
-playButton.addEventListener("click", function (event) {
-  event.preventDefault();
-  playSpeech();
-  let text = pageText.split(' ');
-  globalWords = text
-
-
-})
-
-newQuestion.addEventListener("click", function (event) {
-  window.speechSynthesis.resume()
-  event.preventDefault();
-});
+// playButton.addEventListener("click", function (event) {
+//   event.preventDefault();
+//   playSpeech();
+// })
 
 // Pause
 document.querySelector("#pause").addEventListener("click", () => {
@@ -102,3 +89,34 @@ const t1 = performance.now();
 console.log(`Call to finish script took ${t1 - t0} milliseconds.`);
 
 console.log(JSON.stringify(window.performance.memory, ['totalJSHeapSize', 'usedJSHeapSize', 'jsHeapSizeLimit']));
+
+const btn = document.getElementById("play");
+
+const highlight = (text, from, to) => {
+  let replacement = highlightBackground(text.slice(from, to));
+  return text.substring(0, from) + replacement + text.substring(to);
+};
+const highlightBackground = (sample) =>
+  `<span style="background-color:yellow;">${sample}</span>`;
+
+btn &&
+  btn.addEventListener("click", () => {
+    const synth = window.speechSynthesis;
+    if (!synth) {
+      console.error("no tts");
+      return;
+    }
+    let text = document.getElementById("text");
+    let originalText = text.innerText;
+    console.log(originalText)
+    let utterance = new SpeechSynthesisUtterance(originalText);
+    utterance.addEventListener("boundary", (event) => {
+      const { charIndex, charLength } = event;
+      text.innerHTML = highlight(
+        originalText,
+        charIndex,
+        charIndex + charLength
+      );
+    });
+    synth.speak(utterance);
+  });
