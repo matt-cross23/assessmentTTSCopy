@@ -8,8 +8,6 @@ const question = document.querySelectorAll(".question");
 let result = []
 let voices = [];
 let boundary = document.querySelector(".next");
-let nextButton = document.querySelector(".proxyNext");
-let newQuestion = document.querySelector(".newQuestion");
 console.log(question)
 
 // For Highlight 
@@ -69,6 +67,9 @@ const speakAll = (text) => {
 //   event.preventDefault();
 //   playSpeech();
 // })
+for(let i = 0; i < question.length; i++){
+  result.push(question[i].innerText)}
+
 
 // Pause
 document.querySelector("#pause").addEventListener("click", () => {
