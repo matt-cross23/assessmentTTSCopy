@@ -91,6 +91,8 @@ console.log(`Call to finish script took ${t1 - t0} milliseconds.`);
 
 console.log(JSON.stringify(window.performance.memory, ['totalJSHeapSize', 'usedJSHeapSize', 'jsHeapSizeLimit']));
 
+
+// Start of new code
 const btn = document.getElementById("play");
 
 const highlight = (text, from, to) => {
@@ -101,13 +103,15 @@ const highlightBackground = (sample) =>
   `<span style="background-color:yellow;">${sample}</span>`;
 
 btn &&
-  btn.addEventListener("click", () => {
+  btn.addEventListener("click", (event) => {
+    event.preventDefault()
     const synth = window.speechSynthesis;
     if (!synth) {
       console.error("no tts");
       return;
     }
     let text = document.getElementById("text");
+    console.log(text)
     let originalText = text.innerText;
     console.log(originalText)
     let utterance = new SpeechSynthesisUtterance(originalText);
