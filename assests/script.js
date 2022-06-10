@@ -99,7 +99,7 @@ const highlight = (text, from, to) => {
   return text.substring(0, from) + replacement + text.substring(to);
 };
 const highlightBackground = (sample) =>
-  `<span style="background-color:yellow;">${sample}</span>`;
+  `<span style="background-color:red;">${sample}</span>`;
 
 btn &&
   btn.addEventListener("click", () => {
@@ -132,12 +132,13 @@ $('#questionButton').on('click',function(event){
   const pTag = $('#paragraph1');
   const pTagText = pTag.text();
   let utterance = new SpeechSynthesisUtterance(pTagText);
+  originalText = pTagText
   utterance.addEventListener('end', (event) => {
     window.alert('done')
   })
   utterance.addEventListener("boundary", (event) => {
     const { charIndex, charLength } = event;
-    text.innerHTML = highlight(
+    text.innerHTML += highlight(
       originalText,
       charIndex,
       charIndex + charLength
