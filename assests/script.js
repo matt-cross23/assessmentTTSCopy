@@ -9,6 +9,8 @@ let result = []
 let voices = [];
 let boundary = document.querySelector(".next");
 console.log(question)
+// const question1 = document.querySelector('question');
+// const questionText = question1.textContent;
 
 // For Highlight 
 let wordIndex = 0;
@@ -120,4 +122,17 @@ btn &&
     });
     synth.speak(utterance);
   });
- 
+//  Keep track of each div and tag .text function to get the text 
+
+const questionButton = $('#questionButton')[0];
+$('#questionButton').on('click',function(event){
+  event.preventDefault();
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  const pTag = $('#paragraph1');
+  const pTagText = pTag.text();
+  let utterance = new SpeechSynthesisUtterance(pTagText);
+  synth.speak(utterance);
+});
+
+// Read and highlight individually question and once done reading alert 
