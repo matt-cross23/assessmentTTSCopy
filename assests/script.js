@@ -132,6 +132,17 @@ $('#questionButton').on('click',function(event){
   const pTag = $('#paragraph1');
   const pTagText = pTag.text();
   let utterance = new SpeechSynthesisUtterance(pTagText);
+  utterance.addEventListener('end', (event) => {
+    window.alert('done')
+  })
+  utterance.addEventListener("boundary", (event) => {
+    const { charIndex, charLength } = event;
+    text.innerHTML = highlight(
+      originalText,
+      charIndex,
+      charIndex + charLength
+    );
+  });
   synth.speak(utterance);
 });
 
