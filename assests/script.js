@@ -117,7 +117,7 @@ btn &&
     let utterance = new SpeechSynthesisUtterance(originalText);
     utterance.addEventListener("boundary", (event) => {
       const { charIndex, charLength } = event;
-      text.innerHTML = highlight(
+      text.innerHTML += highlight(
         originalText,
         charIndex,
         charIndex + charLength
