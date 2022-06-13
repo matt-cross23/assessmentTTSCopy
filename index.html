@@ -91,12 +91,12 @@
                         </div>
 
                         <h2   >Overall Health</h2>
-                        <p  >
+                        <p  id = 'paragraph1'>
                                                             Please select your current overall LEVEL of HEALTH.
                                                                                         <br>
                                 <span style="font-size:12px;">Rate from 0 Very Poor Health to 10 Excellent Health</span>
                                                     </p>
-
+                                                    <button id = 'questionButton'> Click me to read!</button>
                                                     <div class="answers yesno" style="flex-wrap:wrap;  justify-content:center; ">
                                                                     <div style="flex-grow:0;display:flex;flex-direction: column;margin:3px;">
                                         <input id="overall_level_of_health-0" name="overall_level_of_health"
@@ -2036,7 +2036,7 @@
     let is_tap_user = true;
     if( is_tap_user ){
         //prevent nav to google on TAP
-        window.oncontextmenu = function() { return false; } //disable chrome mobile context menu
+        // window.oncontextmenu = function() { return false; } //disable chrome mobile context menu
         document.onselectstart = function() { return false; } //disable android chrome "touch to search" by disabling text select
     }
 </script>

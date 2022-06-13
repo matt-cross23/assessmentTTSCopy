@@ -9,6 +9,8 @@ let result = []
 let voices = [];
 let boundary = document.querySelector(".next");
 console.log(question)
+// const question1 = document.querySelector('question');
+// const questionText = question1.textContent;
 
 // For Highlight 
 let wordIndex = 0;
@@ -27,9 +29,8 @@ console.log(pageText)
 
 window.speechSynthesis.addEventListener('voiceschanged', function () {
   voices = window.speechSynthesis.getVoices();
-  console.log(voices)
+  // console.log(voices)
 })
-
 
 const speakAll = (text) => {
   return new Promise(resolve => {
@@ -100,7 +101,7 @@ const highlight = (text, from, to) => {
   return text.substring(0, from) + replacement + text.substring(to);
 };
 const highlightBackground = (sample) =>
-  `<span style="background-color:yellow;">${sample}</span>`;
+  `<span style="background-color:red;">${sample}</span>`;
 
 btn &&
   btn.addEventListener("click", (event) => {
@@ -125,4 +126,29 @@ btn &&
     });
     synth.speak(utterance);
   });
- 
+//  Keep track of each div and tag .text function to get the text 
+
+const questionButton = $('#questionButton')[0];
+$('#questionButton').on('click',function(event){
+  event.preventDefault();
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  const pTag = $('#paragraph1');
+  const pTagText = pTag.text();
+  let utterance = new SpeechSynthesisUtterance(pTagText);
+  originalText = pTagText
+  utterance.addEventListener('end', (event) => {
+    window.alert('done')
+  })
+  utterance.addEventListener("boundary", (event) => {
+    const { charIndex, charLength } = event;
+    text.innerHTML += highlight(
+      originalText,
+      charIndex,
+      charIndex + charLength
+    );
+  });
+  synth.speak(utterance);
+});
+
+// Read and highlight individually question and once done reading alert 
