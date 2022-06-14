@@ -8,7 +8,7 @@ const question = document.querySelectorAll(".question");
 let result = []
 let voices = [];
 let boundary = document.querySelector(".next");
-console.log(question)
+// console.log(question)
 // const question1 = document.querySelector('question');
 // const questionText = question1.textContent;
 
@@ -16,15 +16,7 @@ console.log(question)
 let wordIndex = 0;
 let globalWords = [];
 let pageText = $('body').text().trim().replace(/\n/g, '')
-console.log(pageText)
-
-// Highlight v2
-
-// const highlight = (text, from, to) => {
-//   let replacement = highlightBackground(text.slice(from, to))
-//   return text.substring(0, from) + replacement + text.substring(to)
-// }
-// const highlightBackground = sample => `<span style="background-color:yellow;">${sample}</span>`
+// console.log(pageText)
 
 
 window.speechSynthesis.addEventListener('voiceschanged', function () {
@@ -60,14 +52,7 @@ const speakAll = (text) => {
 }
 
 
-// const playSpeech = async () => {
-//   speakAll(pageText)
-// }
 
-// playButton.addEventListener("click", function (event) {
-//   event.preventDefault();
-//   playSpeech();
-// })
 for(let i = 0; i < question.length; i++){
   result.push(question[i].innerText)}
 
@@ -101,7 +86,7 @@ const highlight = (text, from, to) => {
   return text.substring(0, from) + replacement + text.substring(to);
 };
 const highlightBackground = (sample) =>
-  `<span style="background-color:red;">${sample}</span>`;
+  `<span class='highlighted'style="background-color:red;">${sample}</span>`;
 
 btn &&
   btn.addEventListener("click", (event) => {
@@ -118,7 +103,7 @@ btn &&
     let utterance = new SpeechSynthesisUtterance(originalText);
     utterance.addEventListener("boundary", (event) => {
       const { charIndex, charLength } = event;
-      text.innerHTML += highlight(
+      text.innerHTML = highlight(
         originalText,
         charIndex,
         charIndex + charLength
@@ -134,9 +119,11 @@ $('#questionButton').on('click',function(event){
   event.stopPropagation();
   event.stopImmediatePropagation();
   const pTag = $('#paragraph1');
-  const pTagText = pTag.text();
-  let utterance = new SpeechSynthesisUtterance(pTagText);
-  originalText = pTagText
+  console.log(pTag)
+  let pTagText = pTag.text();
+  let originalText = pTagText
+  let utterance = new SpeechSynthesisUtterance(originalText);
+    // Line that is changing html into just text
   utterance.addEventListener('end', (event) => {
     window.alert('done')
   })
@@ -147,7 +134,10 @@ $('#questionButton').on('click',function(event){
       charIndex,
       charIndex + charLength
     );
+  console.log('Highlighting this word ' + event.charIndex);
+      console.log(text)
   });
+ 
   synth.speak(utterance);
 });
 
