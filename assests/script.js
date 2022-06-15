@@ -14,11 +14,7 @@ let boundary = document.querySelector(".next");
 
 
 // Global highlight variables
-let highlightedText = $('.highlighted')
-for(let i = 1; i < highlightedText.length; i ++){
-result.push(highlightedText[i].innerText)
 
-}
 
 
 window.speechSynthesis.addEventListener('voiceschanged', function () {
@@ -120,28 +116,30 @@ $('#questionButton').on('click',function(event){
   event.preventDefault();
   event.stopPropagation();
   event.stopImmediatePropagation();
-  const pTag = $('#paragraph1');
+  let pTag = $('#paragraph1');
   console.log(pTag)
   let originalText = pTag.text();  
   let utterance = new SpeechSynthesisUtterance(originalText);
     // Line that is changing html into just text
   utterance.addEventListener('end', (event) => {
-    window.alert('done')
+
   })
-  utterance.addEventListener("boundary", (event) => {
-    const pTag = $('#paragraph1');
-    let originalText = pTag.text();  
+  utterance.addEventListener("boundary", (event) => { 
     const { charIndex, charLength } = event;
-    text.innerHTML += highlight(
+    document.body.querySelector('#paragraph1').innerHTML = highlight(
       originalText,
       charIndex,
       charIndex + charLength
     );
   });
  utterance.addEventListener('start', function(event){
-
+let $newDiv = $('<div>', {id: 'foo'});
+const questionOverall = $("#question_overall_level_of_health");
+console.log(questionOverall)
+questionOverall.appendChild($newDiv)
  })
   synth.speak(utterance);
 });
+
 
 // Read and highlight individually question and once done reading alert 
