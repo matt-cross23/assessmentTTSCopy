@@ -126,11 +126,12 @@ $('#questionButton').on('click',function(event){
   })
   utterance.addEventListener("boundary", (event) => { 
     const { charIndex, charLength } = event;
-    document.body.querySelector('#paragraph1').innerHTML = highlight(
+    //document.body.querySelector('#paragraph1').innerHTML =
+    pTag.html( highlight(
       originalText,
       charIndex,
       charIndex + charLength
-    );
+    ));
   });
   synth.speak(utterance);
 });
