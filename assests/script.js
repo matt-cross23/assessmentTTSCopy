@@ -122,7 +122,7 @@ $('#questionButton').on('click',function(event){
   let utterance = new SpeechSynthesisUtterance(originalText);
     // Line that is changing html into just text
   utterance.addEventListener('end', (event) => {
-
+    window.alert('done')
   })
   utterance.addEventListener("boundary", (event) => { 
     const { charIndex, charLength } = event;
@@ -132,12 +132,6 @@ $('#questionButton').on('click',function(event){
       charIndex + charLength
     );
   });
- utterance.addEventListener('start', function(event){
-let $newDiv = $('<div>', {id: 'foo'});
-const questionOverall = $("#question_overall_level_of_health");
-console.log(questionOverall)
-questionOverall.appendChild($newDiv)
- })
   synth.speak(utterance);
 });
 
