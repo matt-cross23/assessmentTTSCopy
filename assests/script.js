@@ -108,13 +108,23 @@ $('#play').on('click', function(event){
   console.log('working')
   let readBlock = $('.proxyNext').closest('[read-block-container]').find('[read-block');
   console.log(readBlock)
-  console.log($('#paragraph1'))
  readBlock.each(function(index){
-  // let readBlockText = this[i].text()
   console.log( index + ": " + $( this ).text());
   let readBlockText = $( this ).text()
-  console.log(readBlock[index].innerText) 
- })
+  console.log(readBlockText) 
+  let originalText = readBlockText;
+  let utterance = new SpeechSynthesisUtterance(originalText);
+  utterance.addEventListener("boundary", (event) => { 
+    const { charIndex, charLength } = event;
+    //document.body.querySelector('#paragraph1').innerHTML =
+    readBlock.innerText( highlight(
+      originalText,
+      charIndex,
+      charIndex + charLength
+    ));
+  });
+  synth.speak(utterance);
 });
+ })
 
 // Read and highlight individually question and once done reading alert 
