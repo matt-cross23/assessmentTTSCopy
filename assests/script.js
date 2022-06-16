@@ -19,41 +19,8 @@ let boundary = document.querySelector(".next");
 
 window.speechSynthesis.addEventListener('voiceschanged', function () {
   voices = window.speechSynthesis.getVoices();
-  // console.log(voices)
+  console.log(voices)
 })
-
-const speakAll = (text) => {
-  return new Promise(resolve => {
-    const speech = new SpeechSynthesisUtterance(text)
-    speech.voice = voices.find(voice => voice.lang === 'en-US')
-    speech.rate = .75
-    window.speechSynthesis.speak(speech)
-
-
-
-    speech.addEventListener('end', () => {
-      console.log('stopped speaking')
-      // window.speechSynthesis.pause()
-      resolve()
-    });
-
-    // Find the spoken word  
-
-
-    speech.addEventListener('boundary', (event) => {
-      const { charIndex, charLength } = event;
-      text.innerHTML = highlight(originalText, charIndex, charIndex + charLength)
-
-    });
-
-  });
-}
-
-
-
-// for(let i = 0; i < question.length; i++){
-//   result.push(question[i].innerText)}
-
 
 // Pause
 document.querySelector("#pause").addEventListener("click", () => {
@@ -86,29 +53,29 @@ const highlight = (text, from, to) => {
 const highlightBackground = (sample) =>
   `<span class='highlighted'style="background-color:red;">${sample}</span>`;
 
-btn &&
-  btn.addEventListener("click", (event) => {
-    event.preventDefault()
-    const synth = window.speechSynthesis;
-    if (!synth) {
-      console.error("no tts");
-      return;
-    }
-    let text = document.getElementById("text");
-    console.log(text)
-    let originalText = text.innerText;
-    console.log(originalText)
-    let utterance = new SpeechSynthesisUtterance(originalText);
-    utterance.addEventListener("boundary", (event) => {
-      const { charIndex, charLength } = event;
-      text.innerHTML = highlight(
-        originalText,
-        charIndex,
-        charIndex + charLength
-      );
-    });
-    synth.speak(utterance);
-  });
+// btn &&
+//   btn.addEventListener("click", (event) => {
+//     event.preventDefault()
+//     const synth = window.speechSynthesis;
+//     if (!synth) {
+//       console.error("no tts");
+//       return;
+//     }
+//     let text = document.getElementById("text");
+//     console.log(text)
+//     let originalText = text.innerText;
+//     console.log(originalText)
+//     let utterance = new SpeechSynthesisUtterance(originalText);
+//     utterance.addEventListener("boundary", (event) => {
+//       const { charIndex, charLength } = event;
+//       text.innerHTML = highlight(
+//         originalText,
+//         charIndex,
+//         charIndex + charLength
+//       );
+//     });
+//     synth.speak(utterance);
+//   });
 //  Keep track of each div and tag .text function to get the text 
 
 const questionButton = $('#questionButton')[0];
@@ -136,5 +103,15 @@ $('#questionButton').on('click',function(event){
   synth.speak(utterance);
 });
 
+$('#play').on('click', function(event){
+  event.preventDefault();
+  console.log('working')
+  let readBlock = $('.proxyNext').closest('[read-block-container]').find('[read-block');
+  console.log(readBlock)
+  console.log($('#paragraph1'))
+ readBlock.each(function(i){
+  this
+ })
+});
 
 // Read and highlight individually question and once done reading alert 
