@@ -109,8 +109,11 @@ $('#play').on('click', function(event){
   let readBlock = $('.proxyNext').closest('[read-block-container]').find('[read-block');
   console.log(readBlock)
   console.log($('#paragraph1'))
- readBlock.each(function(i){
-  this
+ readBlock.each(function(index){
+  // let readBlockText = this[i].text()
+  console.log( index + ": " + $( this ).text());
+  let readBlockText = $( this ).text()
+  console.log(readBlock[index].innerText) 
  })
 });
 
