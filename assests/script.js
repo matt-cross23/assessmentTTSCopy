@@ -117,7 +117,7 @@ $('#play').on('click', function(event){
   utterance.addEventListener("boundary", (event) => { 
     const { charIndex, charLength } = event;
     //document.body.querySelector('#paragraph1').innerHTML =
-    readBlock.innerText( highlight(
+    readBlock.html( highlight(
       originalText,
       charIndex,
       charIndex + charLength
@@ -126,5 +126,6 @@ $('#play').on('click', function(event){
   synth.speak(utterance);
 });
  })
+
 
 // Read and highlight individually question and once done reading alert 
