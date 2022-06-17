@@ -104,6 +104,7 @@ $('#play').on('click', function(event){
   console.log(readBlocks)
  $readBlock.each(function(index){
   // console.log( index + ": " + $( this ).text());
+  // Do we need to index the read blocks?
   let readBlockText = $( this ).text();
   console.log(readBlockText)
   let originalText = readBlockText;
