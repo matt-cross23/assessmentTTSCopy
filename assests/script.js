@@ -106,7 +106,7 @@ $('#questionButton').on('click',function(event){
 $('#play').on('click', function(event){
   event.preventDefault();
   console.log('working')
-  let readBlock = $('.proxyNext').closest('[read-block-container]').find('[read-block');
+  let readBlock = $('.proxyNext').closest('[read-block-container]').find('[read-block]');
   console.log(readBlock)
  readBlock.each(function(index){
   console.log( index + ": " + $( this ).text());
