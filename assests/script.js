@@ -5,22 +5,13 @@ var msg = new SpeechSynthesisUtterance("hello");
 var playButton = document.querySelector("#play");
 const patientName = document.querySelector(".patientname");
 const question = document.querySelectorAll(".question");
-let voices = [];
+var voices = synth.getVoices();
 let result = [];
 let boundary = document.querySelector(".next");
-// console.log(question)
-// const question1 = document.querySelector('question');
-// const questionText = question1.textContent;
-
-
-// Global highlight variables
-
-
-
-window.speechSynthesis.addEventListener('voiceschanged', function () {
+window.speechSynthesis.onvoiceschanged = () => {
   voices = window.speechSynthesis.getVoices();
   console.log(voices)
-})
+};
 
 // Pause
 document.querySelector("#pause").addEventListener("click", () => {
@@ -100,29 +91,35 @@ $('#questionButton').on('click',function(event){
       charIndex + charLength
     ));
   });
+
   synth.speak(utterance);
+ 
 });
 
 $('#play').on('click', function(event){
   event.preventDefault();
-  console.log('working')
-  let readBlock = $('.proxyNext').closest('[read-block-container]').find('[read-block]');
-  console.log(readBlock)
- readBlock.each(function(index){
-  console.log( index + ": " + $( this ).text());
-  let readBlockText = $( this ).text()
-  console.log(readBlockText) 
+  let $readBlock = $('.proxyNext').closest('[read-block-container]').find('[read-block]');
+  console.log($readBlock)
+  let readBlocks = $(this).closest('[read-block-container]').find('[read-block]');
+  console.log(readBlocks)
+ $readBlock.each(function(index){
+  // console.log( index + ": " + $( this ).text());
+  // Do we need to index the read blocks?
+  let readBlockText = $( this ).text();
+  console.log(readBlockText)
   let originalText = readBlockText;
   let utterance = new SpeechSynthesisUtterance(originalText);
   utterance.addEventListener("boundary", (event) => { 
     const { charIndex, charLength } = event;
     //document.body.querySelector('#paragraph1').innerHTML =
-    readBlock.innerText( highlight(
+    $readBlock.html(highlight(
       originalText,
       charIndex,
       charIndex + charLength
     ));
   });
+  // utterance.voice = 1
+  utterance.voice = voices[0]
   synth.speak(utterance);
 });
  })
