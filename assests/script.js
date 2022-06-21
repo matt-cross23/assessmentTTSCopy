@@ -80,6 +80,10 @@ $('#questionButton').on('click',function(event){
   let utterance = new SpeechSynthesisUtterance(originalText);
     // Line that is changing html into just text
   utterance.addEventListener('end', (event) => {
+    let $answers = $('.answers')[0];
+    console.log($answers)
+    let answerObject = $('.answersbutton');
+    console.log(answerObject)
     window.alert('done')
   })
   utterance.addEventListener("boundary", (event) => { 
@@ -95,6 +99,7 @@ $('#questionButton').on('click',function(event){
   synth.speak(utterance);
  
 });
+
 
 $('#play').on('click', function(event){
   event.preventDefault();
@@ -125,3 +130,9 @@ $('#play').on('click', function(event){
  })
 
 // Read and highlight individually question and once done reading alert 
+$('.proxyNext').on('click', function(event) {
+  event.preventDefault();
+  let $readBlock = $('.proxyNext').closest('[read-block-container]').find('[read-block]');
+  console.log($readBlock);
+$( "<button type='button' readQuestion>Press to Read Question </button>" ).appendTo($readBlock);
+})
