@@ -74,22 +74,23 @@ $('#questionButton').on('click',function(event){
   event.preventDefault();
   event.stopPropagation();
   event.stopImmediatePropagation();
-  let pTag = $('#paragraph1');
-  console.log(pTag)
-  let originalText = pTag.text();  
+  let $pTag = $('#paragraph1');
+  let $answers = $('.answers')[0];
+  console.log($answers)
+  console.log($pTag)
+  let originalText = $pTag.text();  
   let utterance = new SpeechSynthesisUtterance(originalText);
     // Line that is changing html into just text
   utterance.addEventListener('end', (event) => {
-    let $answers = $('.answers')[0];
     console.log($answers)
     let answerObject = $('.answersbutton');
-    console.log(answerObject)
-    window.alert('done')
+    // console.log(answerObject)
+    // window.alert('done')
   })
   utterance.addEventListener("boundary", (event) => { 
     const { charIndex, charLength } = event;
     //document.body.querySelector('#paragraph1').innerHTML =
-    pTag.html( highlight(
+    $pTag.html( highlight(
       originalText,
       charIndex,
       charIndex + charLength
@@ -103,10 +104,8 @@ $('#questionButton').on('click',function(event){
 
 $('#play').on('click', function(event){
   event.preventDefault();
-  let $readBlock = $('.proxyNext').closest('[read-block-container]').find('[read-block]');
+  let $readBlock = $('.speechwrapper').closest('[read-block-container]').find('[read-block]');
   console.log($readBlock)
-  let readBlocks = $(this).closest('[read-block-container]').find('[read-block]');
-  console.log(readBlocks)
  $readBlock.each(function(index){
   // console.log( index + ": " + $( this ).text());
   // Do we need to index the read blocks?
@@ -128,6 +127,7 @@ $('#play').on('click', function(event){
   synth.speak(utterance);
 });
  })
+
 
 // Read and highlight individually question and once done reading alert 
 $('.proxyNext').on('click', function(event) {
