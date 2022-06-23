@@ -62,7 +62,6 @@
                             <div class="controls">
                                 <div class="mb-5">
                                     <!-- <button id="play" class="btn btn-primary">Play</button> -->
-                                    <button id='play' type="button" class="btn">Play</button>
                                     <button id="pause" type="button" class="btn btn-warning mt-5 me-3">Pause</button>
                                     <button id="resume" type="button" class="btn btn-info mt-5 me-3">Resume</button>
                                     <button id="cancelVoice" type="button"
@@ -82,7 +81,7 @@
                         <span data-case="failed">Could not save form.</span>
                     </span>
 
-                    <div class="question" read-block id="question_overall_level_of_health">
+                    <div class="question" read-block-container id="question_overall_level_of_health">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -90,93 +89,93 @@
                                 Question <b style="color:#346995;">1 of 20</b>
                             </span>
                         </div>
-
+                        <button id='play' type="button" class="btn">Play</button>
                         <h2>Overall Health</h2>
-                        <p id='paragraph1'>
+                        <p read-block id='paragraph1'>
                             Please select your current overall LEVEL of HEALTH.
-                            <br>
-                            <span style="font-size:12px;">Rate from 0 Very Poor Health to 10 Excellent Health</span>
                         </p>
+                        <span read-block style="font-size:12px;">Rate from 0 Very Poor Health to 10 Excellent Health</span>
+
                         <button id='questionButton'> Click me to read!</button>
                         <div class="answers yesno" style="flex-wrap:wrap;  justify-content:center; ">
                             <div style="flex-grow:0;display:flex;flex-direction: column;margin:3px;">
                                 <input id="overall_level_of_health-0" name="overall_level_of_health" type="radio"
                                     value="0">
                                 <button type="button" style="min-width:28px;padding:8px;" class="answersbutton">
-                                    <span style="font-size:16px;">0</span>
+                                    <span read-block style="font-size:16px;">0</span>
                                 </button>
-                                <span style="font-size:13px;">Very Poor Health</span>
+                                <span read-block style="font-size:13px;">Very Poor Health</span>
                             </div>
                             <div style="flex-grow:0;display:flex;flex-direction: column;margin:3px;">
                                 <input id="overall_level_of_health-1" name="overall_level_of_health" type="radio"
                                     value="1">
                                 <button type="button" style="min-width:28px;padding:8px;" class="answersbutton">
-                                    <span style="font-size:16px;">1</span>
+                                    <span read-block style="font-size:16px;">1</span>
                                 </button>
                             </div>
                             <div style="flex-grow:0;display:flex;flex-direction: column;margin:3px;">
                                 <input id="overall_level_of_health-2" name="overall_level_of_health" type="radio"
                                     value="2">
                                 <button type="button" style="min-width:28px;padding:8px;" class="answersbutton">
-                                    <span style="font-size:16px;">2</span>
+                                    <span read-block style="font-size:16px;">2</span>
                                 </button>
                             </div>
                             <div style="flex-grow:0;display:flex;flex-direction: column;margin:3px;">
                                 <input id="overall_level_of_health-3" name="overall_level_of_health" type="radio"
                                     value="3">
                                 <button type="button" style="min-width:28px;padding:8px;" class="answersbutton">
-                                    <span style="font-size:16px;">3</span>
+                                    <span read-block  style="font-size:16px;">3</span>
                                 </button>
                             </div>
                             <div style="flex-grow:0;display:flex;flex-direction: column;margin:3px;">
                                 <input id="overall_level_of_health-4" name="overall_level_of_health" type="radio"
                                     value="4">
                                 <button type="button" style="min-width:28px;padding:8px;" class="answersbutton">
-                                    <span style="font-size:16px;">4</span>
+                                    <span read-block  style="font-size:16px;">4</span>
                                 </button>
                             </div>
                             <div style="flex-grow:0;display:flex;flex-direction: column;margin:3px;">
                                 <input id="overall_level_of_health-5" name="overall_level_of_health" type="radio"
                                     value="5">
                                 <button type="button" style="min-width:28px;padding:8px;" class="answersbutton">
-                                    <span style="font-size:16px;">5</span>
+                                    <span  read-block style="font-size:16px;">5</span>
                                 </button>
                             </div>
                             <div style="flex-grow:0;display:flex;flex-direction: column;margin:3px;">
                                 <input id="overall_level_of_health-6" name="overall_level_of_health" type="radio"
                                     value="6">
                                 <button type="button" style="min-width:28px;padding:8px;" class="answersbutton">
-                                    <span style="font-size:16px;">6</span>
+                                    <span  read-block style="font-size:16px;">6</span>
                                 </button>
                             </div>
                             <div style="flex-grow:0;display:flex;flex-direction: column;margin:3px;">
                                 <input id="overall_level_of_health-7" name="overall_level_of_health" type="radio"
                                     value="7">
                                 <button type="button" style="min-width:28px;padding:8px;" class="answersbutton">
-                                    <span style="font-size:16px;">7</span>
+                                    <span read-block style="font-size:16px;">7</span>
                                 </button>
                             </div>
                             <div style="flex-grow:0;display:flex;flex-direction: column;margin:3px;">
                                 <input id="overall_level_of_health-8" name="overall_level_of_health" type="radio"
                                     value="8">
                                 <button type="button" style="min-width:28px;padding:8px;" class="answersbutton">
-                                    <span style="font-size:16px;">8</span>
+                                    <span read-block style="font-size:16px;">8</span>
                                 </button>
                             </div>
                             <div style="flex-grow:0;display:flex;flex-direction: column;margin:3px;">
                                 <input id="overall_level_of_health-9" name="overall_level_of_health" type="radio"
                                     value="9">
                                 <button type="button" style="min-width:28px;padding:8px;" class="answersbutton">
-                                    <span style="font-size:16px;">9</span>
+                                    <span read-block style="font-size:16px;">9</span>
                                 </button>
                             </div>
                             <div style="flex-grow:0;display:flex;flex-direction: column;margin:3px;">
                                 <input id="overall_level_of_health-10" name="overall_level_of_health" type="radio"
                                     value="10">
                                 <button type="button" style="min-width:28px;padding:8px;" class="answersbutton">
-                                    <span style="font-size:16px;">10</span>
+                                    <span read-block  style="font-size:16px;">10</span>
                                 </button>
-                                <span style="font-size:13px;">Excellent Health</span>
+                                <span read-block style="font-size:13px;">Excellent Health</span>
                             </div>
                         </div>
                         <span data-validation="overall_level_of_health">
