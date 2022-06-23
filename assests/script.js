@@ -54,15 +54,15 @@ $('#questionButton').on('click',function(event){
   let $pTag = $('#paragraph1');
   let $answers = $('.answers')[0];
   console.log($answers.innerText)
-  console.log($pTag)
-  let originalText = $pTag.text() + $answers.innerText; 
+  // console.log($pTag)
+  let originalText = $pTag.text() 
+  // + $answers.innerText; 
   let utterance = new SpeechSynthesisUtterance(originalText);
     // Line that is changing html into just text
   utterance.addEventListener('end', (event) => {
     console.log($answers)
-    // console.log(answerObject)
-    // window.alert('done')
-  })
+
+})
   utterance.addEventListener("boundary", (event) => { 
     const { charIndex, charLength } = event;
     //document.body.querySelector('#paragraph1').innerHTML =
@@ -71,15 +71,10 @@ $('#questionButton').on('click',function(event){
       charIndex,
       charIndex + charLength
     ));
-    $answers.html( highlight(
-      originalText,
-      charIndex,
-      charIndex + charLength
-    ));
   });
   utterance.voice = voices[1]
   synth.speak(utterance);
- 
+  
 });
 
 // Highlights two questions at the same time
