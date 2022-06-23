@@ -101,7 +101,7 @@ $('#questionButton').on('click',function(event){
  
 });
 
-
+// Instead of #play, change to play attribute
 $('#play').on('click', function(event){
   event.preventDefault();
   let $readBlock = $(this).closest('[read-block-container]').find('[read-block]');
@@ -123,11 +123,12 @@ $('#play').on('click', function(event){
       charIndex + charLength
     ));
   });
+  utterance.addEventListener("end", (event) => {
+    readblockElement.html(readBlockText)
+  })
   // utterance.voice = 1
   utterance.voice = voices[0]
   synth.speak(utterance);
-  console.log('utterance end')
-  readblockElement.html(readBlockText)
 });
  })
 // Read block container should have all Readable content inside
