@@ -35,8 +35,9 @@ console.log(JSON.stringify(window.performance.memory, ['totalJSHeapSize', 'usedJ
 
 
 // Start of new code
-const btn = document.getElementById("play");
 
+const btn = document.getElementById("play");
+// Highlights text function 
 const highlight = (text, from, to) => {
   let replacement = highlightBackground(text.slice(from, to));
   return text.substring(0, from) + replacement + text.substring(to);
@@ -44,31 +45,7 @@ const highlight = (text, from, to) => {
 const highlightBackground = (sample) =>
   `<span class='highlighted'style="background-color:red;">${sample}</span>`;
 
-// btn &&
-//   btn.addEventListener("click", (event) => {
-//     event.preventDefault()
-//     const synth = window.speechSynthesis;
-//     if (!synth) {
-//       console.error("no tts");
-//       return;
-//     }
-//     let text = document.getElementById("text");
-//     console.log(text)
-//     let originalText = text.innerText;
-//     console.log(originalText)
-//     let utterance = new SpeechSynthesisUtterance(originalText);
-//     utterance.addEventListener("boundary", (event) => {
-//       const { charIndex, charLength } = event;
-//       text.innerHTML = highlight(
-//         originalText,
-//         charIndex,
-//         charIndex + charLength
-//       );
-//     });
-//     synth.speak(utterance);
-//   });
-//  Keep track of each div and tag .text function to get the text 
-
+// Highlights one 
 const questionButton = $('#questionButton')[0];
 $('#questionButton').on('click',function(event){
   event.preventDefault();
@@ -76,14 +53,13 @@ $('#questionButton').on('click',function(event){
   event.stopImmediatePropagation();
   let $pTag = $('#paragraph1');
   let $answers = $('.answers')[0];
-  console.log($answers)
+  console.log($answers.innerText)
   console.log($pTag)
-  let originalText = $pTag.text();  
+  let originalText = $pTag.text() + $answers.innerText; 
   let utterance = new SpeechSynthesisUtterance(originalText);
     // Line that is changing html into just text
   utterance.addEventListener('end', (event) => {
     console.log($answers)
-    let answerObject = $('.answersbutton');
     // console.log(answerObject)
     // window.alert('done')
   })
@@ -95,13 +71,18 @@ $('#questionButton').on('click',function(event){
       charIndex,
       charIndex + charLength
     ));
+    $answers.html( highlight(
+      originalText,
+      charIndex,
+      charIndex + charLength
+    ));
   });
-
+  utterance.voice = voices[1]
   synth.speak(utterance);
  
 });
 
-
+// Highlights two questions at the same time
 $('#play').on('click', function(event){
   event.preventDefault();
   let $readBlock = $('.speechwrapper').closest('[read-block-container]').find('[read-block]');
