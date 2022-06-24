@@ -78,38 +78,49 @@ $('#questionButton').on('click',function(event){
   
 });
 
-// Highlights two questions at the same time
-$('#play').on('click', function(event){
+// Instead of #play, change to play attribute
+$('[play]').on('click', function(event){
   event.preventDefault();
-  let $readBlock = $('.speechwrapper').closest('[read-block-container]').find('[read-block]');
+  let $readBlock = $(this).closest('[read-block-container]').find('[read-block]');
   console.log($readBlock)
  $readBlock.each(function(index){
   // console.log( index + ": " + $( this ).text());
   // Do we need to index the read blocks?
-  let readBlockText = $( this ).text();
+  let readblockElement = $(this);
+  let readBlockText = readblockElement.text();
   console.log(readBlockText)
   let originalText = readBlockText;
   let utterance = new SpeechSynthesisUtterance(originalText);
   utterance.addEventListener("boundary", (event) => { 
     const { charIndex, charLength } = event;
     //document.body.querySelector('#paragraph1').innerHTML =
-    $readBlock.html(highlight(
+    readblockElement.html(highlight(
       originalText,
       charIndex,
       charIndex + charLength
     ));
   });
+  utterance.addEventListener("end", (event) => {
+    readblockElement.html(readBlockText)
+  })
   // utterance.voice = 1
   utterance.voice = voices[0]
   synth.speak(utterance);
 });
  })
-
-
+// Read block container should have all Readable content inside
+// Button should be inside of the container but putside of read-block
+// Read block should not have nested HTML elements
+// Blocks should only have text and containers have all of the reading blocks within them
+// Play button for each question 
+// Play pause cancel on every question 
+// drop down of voices and sliding scale for rate globally for Demo 
 // Read and highlight individually question and once done reading alert 
 $('.proxyNext').on('click', function(event) {
   event.preventDefault();
-  let $readBlock = $('.proxyNext').closest('[read-block-container]').find('[read-block]');
+  let $readBlock = $('.speechwrapper').closest('[read-block-container]').find('[read-block]');
   console.log($readBlock);
-$( "<button type='button' readQuestion>Press to Read Question </button>" ).appendTo($readBlock);
+$( "<button type='button' class = 'readQuestion'>Press to Read Question </button>" ).appendTo($readBlock);
+$('.readQuestion').on('click', function(event) {
+})
 })
