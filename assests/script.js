@@ -78,7 +78,7 @@ $('#questionButton').on('click',function(event){
 });
 
 // Instead of #play, change to play attribute
-$('#play').on('click', function(event){
+$('[play]').on('click', function(event){
   event.preventDefault();
   let $readBlock = $(this).closest('[read-block-container]').find('[read-block]');
   console.log($readBlock)

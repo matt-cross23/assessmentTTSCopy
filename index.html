@@ -69,7 +69,7 @@
                                 </div>
                             </div>
             <!-- Speech text starts -->
-            <section read-block-container class="speechwrapper">
+            <section class="speechwrapper">
             <div class="assesscontainer">
 
                 <form id="lifestyle-assessment" method="post" action="/lifestyle-assessment/complete-assessment"
@@ -89,7 +89,7 @@
                                 Question <b style="color:#346995;">1 of 20</b>
                             </span>
                         </div>
-                        <button id='play' type="button" class="btn">Play</button>
+                        <button play type="button" class="btn">Play</button>
                         <h2>Overall Health</h2>
                         <p read-block id='paragraph1'>
                             Please select your current overall LEVEL of HEALTH.
@@ -194,7 +194,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" read-block id="question_hours_of_sleep">
+                    <div class="question" read-block-container id="question_hours_of_sleep">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -202,9 +202,9 @@
                                 Question <b style="color:#346995;">2 of 20</b>
                             </span>
                         </div>
-
+                        <button play type="button" class="btn">Play</button>
                         <h2>Sleep</h2>
-                        <p>
+                        <p read-block>
                             OVER THE LAST TWO WEEKS, how many hours of sleep did you average in a 24-hour period?
                         </p>
 
@@ -213,40 +213,40 @@
                                 <input type="radio" data-validate="required" required name="hours_of_sleep"
                                     id="hours_of_sleep1" value="0">
                                 <button type="button" class="answersbutton">
-                                    <span>Less than 4 hours</span>
+                                    <span read-block>Less than 4 hours</span>
                                 </button>
                             </div>
                             <div>
                                 <input type="radio" data-validate="required" required name="hours_of_sleep"
                                     id="hours_of_sleep2" value="1">
                                 <button type="button" class="answersbutton">
-                                    <span>4-5 hours</span>
+                                    <span read-block>4-5 hours</span>
                                 </button>
                             </div>
                             <div>
                                 <input type="radio" data-validate="required" required name="hours_of_sleep"
                                     id="hours_of_sleep3" value="2">
                                 <button type="button" class="answersbutton">
-                                    <span>6 hours</span>
+                                    <span read-block>6 hours</span>
                                 </button>
                             </div>
                             <div>
                                 <input type="radio" data-validate="required" required name="hours_of_sleep"
                                     id="hours_of_sleep4" value="3">
                                 <button type="button" class="answersbutton">
-                                    <span>7-8 hours</span>
+                                    <span read-block>7-8 hours</span>
                                 </button>
                             </div>
                             <div>
                                 <input type="radio" data-validate="required" required name="hours_of_sleep"
                                     id="hours_of_sleep5" value="4">
                                 <button type="button" class="answersbutton">
-                                    <span>9 or more hours</span>
+                                    <span read-block>9 or more hours</span>
                                 </button>
                             </div>
                         </div>
                         <span data-validation="hours_of_sleep">
-                            <span data-case="required">*Please select an answer.</span>
+                            <span read-block data-case="required">*Please select an answer.</span>
                         </span>
 
                         <br><br>
@@ -263,7 +263,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item3">
+                    <div class="question" read-block-container id="question_item3">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -326,7 +326,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item4">
+                    <div class="question" read-block-container id="question_item4">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -395,7 +395,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item5">
+                    <div class="question" read-block-container id="question_item5">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -458,7 +458,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item6">
+                    <div class="question" read-block-container id="question_item6">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -521,7 +521,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item7">
+                    <div class="question" read-block-container id="question_item7">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -584,7 +584,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item8">
+                    <div class="question" read-block-container id="question_item8">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -647,7 +647,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item9a">
+                    <div class="question" read-block-container id="question_item9a">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -709,7 +709,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item9b">
+                    <div class="question" read-block-container id="question_item9b">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -772,7 +772,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item9c">
+                    <div class="question" read-block-container id="question_item9c">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -835,7 +835,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item9d">
+                    <div class="question" read-block-container id="question_item9d">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -898,7 +898,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item9e">
+                    <div class="question" read-block-container id="question_item9e">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -1024,7 +1024,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item10">
+                    <div class="question" read-block-container id="question_item10">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -1137,7 +1137,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item11">
+                    <div class="question" read-block-container id="question_item11">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -1250,7 +1250,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item12">
+                    <div class="question" read-block-container id="question_item12">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -1364,7 +1364,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item13">
+                    <div class="question" read-block-container id="question_item13">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -1475,7 +1475,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_mtc_area">
+                    <div class="question" read-block-container id="question_mtc_area">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -1559,7 +1559,7 @@
                         </div>
                         <img class="americancollege" src="/assets/img/americancollege.png">
                     </div>
-                    <div class="question" id="question_item15">
+                    <div class="question" read-block-container id="question_item15">
                         <div class="lilheader">
                             <span style="font-size:14px;">Assessment <b style="color:#FF5900;">1 of 1</b></span>
                             <span>&bull;</span>
@@ -1651,7 +1651,7 @@
         </div>
         <div class="completed_wrapper">
             <div id="assessments-completed-message" class="hide">
-                <div class="question">
+                <div class="question" read-block-container>
                     <img style="width:80px;" src="/assets/img/badge.png">
                     <h1 style="font-size:26px;">Assessments Completed</h1>
                     <p style="font-size:16px;">
@@ -1674,7 +1674,7 @@
 
                     <p class="small">Please rate the following on a 1 - 5 scale.</p>
                     <br>
-                    <div class="question">
+                    <div class="question"read-block-container>
                         <p>Cleanliness of the Environment</p>
                         <div class="stars answers">
                             <div class="star-container"
@@ -1704,7 +1704,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="question">
+                    <div class="question" read-block-container>
                         <p>Treatment Groups</p>
                         <div class="stars answers">
                             <div class="star-container"
@@ -1734,7 +1734,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="question">
+                    <div class="question"read-block-container>
                         <p>Treatment Counselor</p>
                         <div class="stars answers">
                             <div class="star-container"
@@ -1764,7 +1764,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="question">
+                    <div class="question"read-block-container>
                         <p>Staff Kindness</p>
                         <div class="stars answers">
                             <div class="star-container"
@@ -1794,7 +1794,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="question">
+                    <div class="question" read-block-container>
                         <p>Overall Experience</p>
                         <div class="stars answers">
                             <div class="star-container"
