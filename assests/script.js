@@ -135,6 +135,9 @@ $('#play').on('click', function(event){
 // Button should be inside of the container but putside of read-block
 // Read block should not have nested HTML elements
 // Blocks should only have text and containers have all of the reading blocks within them
+// Play button for each question 
+// Play pause cancel on every question 
+// drop down of voices and sliding scale for rate globally for Demo 
 // Read and highlight individually question and once done reading alert 
 $('.proxyNext').on('click', function(event) {
   event.preventDefault();
