@@ -39,7 +39,7 @@ const highlight = (text, from, to) => {
   return text.substring(0, from) + replacement + text.substring(to);
 };
 const highlightBackground = (sample) =>
-  `<span class='highlighted'style="background-color:red;">${sample}</span>`;
+  `<span class='highlighted'style="background-color:yellow;">${sample}</span>`;
 
 // Instead of #play, change to play attribute
 $('[play]').on('click', function (event) {
