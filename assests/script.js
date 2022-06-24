@@ -53,8 +53,9 @@ $('#questionButton').on('click',function(event){
   event.stopImmediatePropagation();
   let $pTag = $('#paragraph1');
   let $answers = $('.answers')[0];
+  console.log($answers)
   console.log($answers.innerText)
-  // console.log($pTag)
+  console.log($pTag.text())
   let originalText = $pTag.text() 
   // + $answers.innerText; 
   let utterance = new SpeechSynthesisUtterance(originalText);
